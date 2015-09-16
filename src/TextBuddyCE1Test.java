@@ -31,6 +31,11 @@ public class TextBuddyCE1Test {
 	}
 	
 	@Test
+	public void testClear() throws IOException {
+		assertEquals("all content deleted from " + fileName, TextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear"));
+	}
+	
+	@Test
 	public void testDelete() throws IOException {
 		// delete from an empty file
 		TextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
