@@ -22,4 +22,11 @@ public class TextBuddyCE1Test {
 		assertEquals("added to mytextfile.txt: \"With Great Power Comes Great Responsibility\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add With Great Power Comes Great Responsibility"));
 		assertEquals("added to mytextfile.txt: \"Patience is Virtue\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Patience is Virtue"));
 	}
+	
+	@Test
+	public void testDisplay() throws IOException {
+		TextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
+		assertEquals("added to mytextfile.txt: \"Hello World\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
+		TextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
+	}
 }
