@@ -16,17 +16,17 @@ public class TextBuddyCE1Test {
 	
 	@Test
 	public void testAdd() throws IOException {
-		assertEquals("added to mytextfile.txt: \"This is TextBuddy\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add This is TextBuddy"));
-		assertEquals("added to mytextfile.txt: \"TextBuddy is Great!\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add TextBuddy is Great!"));
-		assertEquals("added to mytextfile.txt: \"TextBuddy is amazing\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add TextBuddy is amazing"));
-		assertEquals("added to mytextfile.txt: \"With Great Power Comes Great Responsibility\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add With Great Power Comes Great Responsibility"));
-		assertEquals("added to mytextfile.txt: \"Patience is Virtue\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Patience is Virtue"));
+		assertEquals("added to " + fileName + ": \"This is TextBuddy\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add This is TextBuddy"));
+		assertEquals("added to " + fileName + ": \"TextBuddy is Great!\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add TextBuddy is Great!"));
+		assertEquals("added to " + fileName + ": \"TextBuddy is amazing\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add TextBuddy is amazing"));
+		assertEquals("added to " + fileName + ": \"With Great Power Comes Great Responsibility\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add With Great Power Comes Great Responsibility"));
+		assertEquals("added to " + fileName + ": \"Patience is Virtue\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Patience is Virtue"));
 	}
 	
 	@Test
 	public void testDisplay() throws IOException {
 		TextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
-		assertEquals("added to mytextfile.txt: \"Hello World\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
+		assertEquals("added to " + fileName + ": \"Hello World\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
 		TextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
 	}
 }

@@ -56,7 +56,7 @@ class TextBuddy {
 	private static final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private static final String MESSAGE_PROMPT_USER = "command: ";
 	private static final String MESSAGE_FILE_EMPTY = "%s is empty";
-	private static final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing";
+	private static final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
 
 	// List of Commands
 	enum CommandType {
