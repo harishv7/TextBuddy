@@ -39,5 +39,8 @@ public class TextBuddyCE1Test {
 		// delete an invalid line
 		TextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Performing unit testing now");
 		assertEquals("You have provided an invalid line number.", TextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 2"));
+		
+		// delete a valid line
+		assertEquals("deleted from " + fileName + ": \"Performing unit testing now\"", TextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 1"));
 	}
 }
