@@ -29,4 +29,18 @@ public class TextBuddyCE1Test {
 		assertEquals("added to " + fileName + ": \"Hello World\"", TextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
 		TextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
 	}
+	
+	@Test
+	public void testDelete() throws IOException {
+		// delete from an empty file
+		TextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
+		assertEquals(fileName + " is empty", TextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 1"));
+		
+		// delete an invalid line
+		TextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Performing unit testing now");
+		assertEquals("You have provided an invalid line number.", TextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 2"));
+		
+		// delete a valid line
+		assertEquals("deleted from " + fileName + ": \"Performing unit testing now\"", TextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 1"));
+	}
 }
