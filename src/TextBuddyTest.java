@@ -45,5 +45,10 @@ public class TextBuddyTest {
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Adding a third line");
 		assertEquals("deleted from " + fileName + ": \"Performing unit testing now\"", myTextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 1"));
 		assertEquals("deleted from " + fileName + ": \"Adding a third line\"", myTextBuddy.runCommand(TextBuddy.CommandType.DELETE, "delete 2"));
+		
+		// Test Driven Development (TDD) for CE2
+		// test sorting an empty file
+		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
+		assertEquals(fileName + " has nothing to sort", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
 	}
 }
