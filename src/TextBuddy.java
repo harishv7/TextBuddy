@@ -61,7 +61,7 @@ public class TextBuddy {
 
 	// List of Commands
 	enum CommandType {
-		ADD, DELETE, DISPLAY, CLEAR, INVALID, EXIT
+		ADD, DELETE, DISPLAY, CLEAR, SORT, INVALID, EXIT
 	};
 
 	// List of integer constants used in parsing/manipulating file
@@ -190,6 +190,8 @@ public class TextBuddy {
 			  return CommandType.CLEAR;
 		  case "display" :
 			  return CommandType.DISPLAY;
+		  case "sort" :
+			  return CommandType.SORT;
 		  case "exit" :
 			  return CommandType.EXIT;
 		  default :
@@ -215,12 +217,22 @@ public class TextBuddy {
 			  return clearFile();
 		  case DISPLAY :
 			  return displayFileContents();
+		  case SORT :
+			  return sortFileContents();
 		  case EXIT :
 			  return exitTextBuddy();
 		  case INVALID :
 			  return errorInCommand();
 		  default :
 			  return "";
+		}
+	}
+
+	private String sortFileContents() {
+		if(textStorage.isEmpty()) {
+			return fileName + " has nothing to sort";
+		} else {
+			return "";
 		}
 	}
 
