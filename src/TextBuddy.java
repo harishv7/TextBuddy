@@ -44,7 +44,7 @@ import java.util.Scanner;
  * 
  */
 
-class TextBuddy {
+public class TextBuddy {
 
 	// List of Output Messages
 	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use";
@@ -82,12 +82,16 @@ class TextBuddy {
 	
 	// This array stores the lines of text in a file
 	private static ArrayList<String> storeText;
-
-	public static void runProgram(String[] args) throws IOException {
+	
+	public TextBuddy(String[] args) throws IOException {
 		validateArguments(args);
 		printWelcomeMessage();
 		getFileReady();
-		getInputUntilUserExits();
+	}
+
+	public static void main(String[] args) throws IOException {
+		TextBuddy myTextBuddy = new TextBuddy(args);
+		myTextBuddy.getInputUntilUserExits();
 	}
 
 	/*
@@ -141,7 +145,7 @@ class TextBuddy {
 		System.out.println(message);
 	}
 
-	private static void getInputUntilUserExits() throws IOException {
+	private void getInputUntilUserExits() throws IOException {
 		String userInput;
 		while (!shouldExitProgram){
 			promptUserForInput();
