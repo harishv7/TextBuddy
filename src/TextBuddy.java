@@ -82,7 +82,7 @@ public class TextBuddy {
 	private static boolean shouldExitProgram = false;
 	
 	// This array stores the lines of text in a file
-	private static ArrayList<String> storeText;
+	private static ArrayList<String> textStorage;
 	
 	public TextBuddy(String[] args) throws IOException {
 		validateArguments(args);
@@ -126,18 +126,18 @@ public class TextBuddy {
 			textFile.createNewFile();
 		}
 		scanner = new Scanner(System.in);
-		storeText = new ArrayList<String>();
+		textStorage = new ArrayList<String>();
 		loadTextFromFile();
 	}
 
 	/* 
-	 * This operation loads the existing text from the file into storeText arraylist.
+	 * This operation loads the existing text from the file into textStorage arraylist.
 	 */
 	private static void loadTextFromFile() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(textFile));
 		String line;
 		while ((line = reader.readLine()) != null) {
-			storeText.add(line);
+			textStorage.add(line);
 		}
 		reader.close();
 	}
@@ -243,7 +243,7 @@ public class TextBuddy {
 
 	private static String deleteLine(int lineToDelete) throws IOException {
 		if (isLineToDeleteValid(lineToDelete)) {
-			String lineDeleted = storeText.remove(lineToDelete - 1);
+			String lineDeleted = textStorage.remove(lineToDelete - 1);
 			saveFile();
 			return displayDeleteSuccessMessage(lineDeleted);
 		} else {
@@ -268,14 +268,14 @@ public class TextBuddy {
 	}
 
 	private static boolean isLineToDeleteValid(int lineToDelete) {
-		if ((lineToDelete > 0) && (lineToDelete <= storeText.size())) {
+		if ((lineToDelete > 0) && (lineToDelete <= textStorage.size())) {
 			return true;
 		}
 		return false;
 	}
 
 	private static String displayDeleteErrorMessage() {
-		if (storeText.isEmpty()) {
+		if (textStorage.isEmpty()) {
 			return displayFileEmptyMessage();
 		} else {
 			return displayInvalidLineMessage();
@@ -291,7 +291,7 @@ public class TextBuddy {
 	}
 
 	private static String clearFile() throws IOException {
-		storeText.clear();
+		textStorage.clear();
 		saveFile();
 		return displayFileClearedMessage();
 	}
@@ -312,7 +312,7 @@ public class TextBuddy {
 	private static String addToFile(String userInput) throws IOException {
 		String lineToAdd = "";
 		lineToAdd = userInput.substring(INDEX_OF_LINE_TO_ADD);
-		storeText.add(lineToAdd);
+		textStorage.add(lineToAdd);
 		saveFile();
 		return displayAddSuccessMessage(lineToAdd);
 	}
@@ -323,9 +323,9 @@ public class TextBuddy {
 
 	private static void saveFile() throws IOException {
 		FileWriter writer = new FileWriter(textFile);
-		for (int i = 0; i < storeText.size(); i++) {
-			writer.write(storeText.get(i));
-			if (i != storeText.size() - 1) {
+		for (int i = 0; i < textStorage.size(); i++) {
+			writer.write(textStorage.get(i));
+			if (i != textStorage.size() - 1) {
 				writer.write("\n");
 			}
 			writer.flush();
@@ -334,13 +334,13 @@ public class TextBuddy {
 	}
 
 	private static String displayFileContents() {
-		if (storeText.size() == 0) {
+		if (textStorage.size() == 0) {
 			return displayFileEmptyMessage();
 		} else {
 			String fileContent = "";
-			for(int i = 0; i < storeText.size(); i++) {
+			for(int i = 0; i < textStorage.size(); i++) {
 				int lineNumber = i+1;
-				fileContent += lineNumber + ". " + storeText.get(i) + "\n";
+				fileContent += lineNumber + ". " + textStorage.get(i) + "\n";
 			}
 			return fileContent;
 		}
