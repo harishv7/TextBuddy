@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -55,6 +56,7 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
 	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
+	private static final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
@@ -232,8 +234,13 @@ public class TextBuddy {
 		if(textStorage.isEmpty()) {
 			return fileName + " has nothing to sort";
 		} else {
-			return "";
+			java.util.Collections.sort(textStorage);
+			return displaySuccessfulSortMessage();
 		}
+	}
+
+	private String displaySuccessfulSortMessage() {
+		return String.format(MESSAGE_SORT_SUCCESS, fileName);
 	}
 
 	/*
