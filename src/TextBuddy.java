@@ -54,6 +54,7 @@ public class TextBuddy {
 	private static final String MESSAGE_CLEARED = "all content deleted from %s";
 	private static final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
 	private static final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
+	private static final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
 	private static final String MESSAGE_PROMPT_USER = "command: ";
 	private static final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private static final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
@@ -219,9 +220,30 @@ public class TextBuddy {
 	 * @throws IOException when there is a problem in manipulating/saving the file.
 	 */
 	private static String deleteFromFile(String userInput) throws IOException {
-		int lineToDelete = getLineNumberToDelete(userInput);
+		if (isDeleteCommandValid(userInput)) {
+			int lineToDelete = getLineNumberToDelete(userInput);
+			return deleteLine(lineToDelete);
+		} else {
+			return displayInvalidDeleteMessage();
+		}
+	}
+
+	private static boolean isDeleteCommandValid(String userInput) throws StringIndexOutOfBoundsException {
+		try {
+			Integer.parseInt(userInput.substring(INDEX_OF_LINE_NUMBER));
+			return true;
+		} catch (StringIndexOutOfBoundsException exception) {
+			return false;
+		}
+	}
+
+	private static String displayInvalidDeleteMessage() {
+		return MESSAGE_ERROR_INVALID_DELETE_COMMAND;
+	}
+
+	private static String deleteLine(int lineToDelete) throws IOException {
 		if (isLineToDeleteValid(lineToDelete)) {
-			String lineDeleted = storeText.remove(lineToDelete-1);
+			String lineDeleted = storeText.remove(lineToDelete - 1);
 			saveFile();
 			return displayDeleteSuccessMessage(lineDeleted);
 		} else {
