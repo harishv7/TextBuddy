@@ -50,5 +50,24 @@ public class TextBuddyTest {
 		// test sorting an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
 		assertEquals(fileName + " has nothing to sort", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
+		
+		// test sorting a non-empty file according to alphabetical order
+		// add sample lines
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Camel");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Penguin");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Buffalo");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Hippopotamus");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Meerkat");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Reindeer");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Zebra");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Shark");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Gorilla");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Rabbit");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Koala");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Flamingo");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Elephant");
+				
+		assertEquals(fileName + " has been sorted alphabetically", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
+		
 	}
 }
