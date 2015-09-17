@@ -65,11 +65,13 @@ public class TextBuddy {
 	};
 
 	// List of integer constants used in parsing/manipulating file
+	// The numbers refer to the index that the relevant number/name starts from
 	private static final int INDEX_OF_FILE_NAME = 0;
 	private static final int INDEX_OF_USER_COMMAND = 0;
 	private static final int INDEX_OF_LINE_NUMBER = 7;
 	private static final int INDEX_OF_LINE_TO_ADD = 4;
 	
+	// Integer constant used to reflect empty files/lines
 	private static final int EMPTY = 0;
 	
 	// List of constants used to reflect error or successful exit
