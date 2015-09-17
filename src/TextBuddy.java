@@ -367,6 +367,9 @@ public class TextBuddy {
 		return String.format(MESSAGE_FILE_EMPTY, fileName);
 	}
 	
+	/* 
+	 * This method is used for unit testing
+	 */
 	public static void setFileName(String name) {
 		fileName = name;
 	}
