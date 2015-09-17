@@ -344,9 +344,22 @@ public class TextBuddy {
 			String fileContent = "";
 			for(int i = 0; i < textStorage.size(); i++) {
 				int lineNumber = i+1;
-				fileContent += lineNumber + ". " + textStorage.get(i) + "\n";
+				fileContent += lineNumber + ". " + textStorage.get(i);
+				
+				// Only add a newline character when it is not the last line to display
+				if(!isAddingLastLine(i)) {
+					fileContent += "\n";
+				}
 			}
 			return fileContent;
+		}
+	}
+
+	private static boolean isAddingLastLine(int i) {
+		if(i == textStorage.size() - 1) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
