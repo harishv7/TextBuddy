@@ -64,11 +64,13 @@ public class TextBuddy {
 		ADD, DELETE, DISPLAY, CLEAR, INVALID, EXIT
 	};
 
-	// List of constants used to extract the correct parts of a string
+	// List of integer constants used in parsing/manipulating file
 	private static final int INDEX_OF_FILE_NAME = 0;
 	private static final int INDEX_OF_USER_COMMAND = 0;
 	private static final int INDEX_OF_LINE_NUMBER = 7;
 	private static final int INDEX_OF_LINE_TO_ADD = 4;
+	
+	private static final int EMPTY = 0;
 	
 	// List of constants used to reflect error or successful exit
 	private static final int SYSTEM_EXIT_SUCCESS = 0;
@@ -103,7 +105,7 @@ public class TextBuddy {
 	 * 			   TextBuddy.
 	 */
 	private static void validateArguments(String[] args) {
-		if (args.length == 0) {
+		if (args.length == EMPTY) {
 			displayMessage(MESSAGE_ERROR_INVALID_FILE_NAME);
 			System.exit(SYSTEM_EXIT_WITH_ERROR);
 		} else {
@@ -334,7 +336,7 @@ public class TextBuddy {
 	}
 
 	private static String displayFileContents() {
-		if (textStorage.size() == 0) {
+		if (textStorage.size() == EMPTY) {
 			return displayFileEmptyMessage();
 		} else {
 			String fileContent = "";
