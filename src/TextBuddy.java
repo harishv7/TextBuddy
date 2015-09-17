@@ -221,8 +221,8 @@ public class TextBuddy {
 	 */
 	private static String deleteFromFile(String userInput) throws IOException {
 		if (isDeleteCommandValid(userInput)) {
-			int lineToDelete = getLineNumberToDelete(userInput);
-			return deleteLine(lineToDelete);
+			int lineNumToDelete = getLineNumberToDelete(userInput);
+			return deleteLine(lineNumToDelete);
 		} else {
 			return displayInvalidDeleteMessage();
 		}
@@ -241,9 +241,9 @@ public class TextBuddy {
 		return MESSAGE_ERROR_INVALID_DELETE_COMMAND;
 	}
 
-	private static String deleteLine(int lineToDelete) throws IOException {
-		if (isLineToDeleteValid(lineToDelete)) {
-			String lineDeleted = textStorage.remove(lineToDelete - 1);
+	private static String deleteLine(int lineNumToDelete) throws IOException {
+		if (islineNumToDeleteValid(lineNumToDelete)) {
+			String lineDeleted = textStorage.remove(lineNumToDelete - 1);
 			saveFile();
 			return displayDeleteSuccessMessage(lineDeleted);
 		} else {
@@ -267,8 +267,8 @@ public class TextBuddy {
 		}
 	}
 
-	private static boolean isLineToDeleteValid(int lineToDelete) {
-		if ((lineToDelete > 0) && (lineToDelete <= textStorage.size())) {
+	private static boolean islineNumToDeleteValid(int lineNumToDelete) {
+		if ((lineNumToDelete > 0) && (lineNumToDelete <= textStorage.size())) {
 			return true;
 		}
 		return false;
