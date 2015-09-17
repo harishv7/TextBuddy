@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TextBuddyCE1Test {
+public class TextBuddyTest {
 	private static final String[] fileNameArray = {"mytextfile.txt"};
 	private static final String fileName = fileNameArray[0];
 	private static TextBuddy myTextBuddy;
