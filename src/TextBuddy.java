@@ -47,17 +47,17 @@ import java.util.Scanner;
 public class TextBuddy {
 
 	// List of Output Messages
-	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use";
-	private static final String MESSAGE_ERROR_INVALID_FILE_NAME = "File name provided is invalid. TextBuddy will exit now.";
-	private static final String MESSAGE_ADDED = "added to %1$s: \"%2$s\""; 
-	private static final String MESSAGE_DELETED = "deleted from %1$s: \"%2$s\"";
-	private static final String MESSAGE_CLEARED = "all content deleted from %s";
-	private static final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
-	private static final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
-	private static final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
-	private static final String MESSAGE_PROMPT_USER = "command: ";
-	private static final String MESSAGE_FILE_EMPTY = "%s is empty";
-	private static final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
+	private final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use";
+	private final String MESSAGE_ERROR_INVALID_FILE_NAME = "File name provided is invalid. TextBuddy will exit now.";
+	private final String MESSAGE_ADDED = "added to %1$s: \"%2$s\""; 
+	private final String MESSAGE_DELETED = "deleted from %1$s: \"%2$s\"";
+	private final String MESSAGE_CLEARED = "all content deleted from %s";
+	private final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
+	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
+	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
+	private final String MESSAGE_PROMPT_USER = "command: ";
+	private final String MESSAGE_FILE_EMPTY = "%s is empty";
+	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
 
 	// List of Commands
 	enum CommandType {
@@ -66,28 +66,35 @@ public class TextBuddy {
 
 	// List of integer constants used in parsing/manipulating file
 	// The numbers refer to the index that the relevant number/name starts from
-	private static final int INDEX_OF_FILE_NAME = 0;
-	private static final int INDEX_OF_USER_COMMAND = 0;
-	private static final int INDEX_OF_LINE_NUMBER = 7;
-	private static final int INDEX_OF_LINE_TO_ADD = 4;
+	private final int INDEX_OF_FILE_NAME = 0;
+	private final int INDEX_OF_USER_COMMAND = 0;
+	private final int INDEX_OF_LINE_NUMBER = 7;
+	private final int INDEX_OF_LINE_TO_ADD = 4;
 	
 	// Integer constant used to reflect empty files/lines
-	private static final int EMPTY = 0;
+	private final int EMPTY = 0;
 	
 	// List of constants used to reflect error or successful exit
-	private static final int SYSTEM_EXIT_SUCCESS = 0;
-	private static final int SYSTEM_EXIT_WITH_ERROR = -1;
-	private static final int NUMBER_FORMAT_EXCEPTION_ERROR = -1;
+	private final int SYSTEM_EXIT_SUCCESS = 0;
+	private final int SYSTEM_EXIT_WITH_ERROR = -1;
+	private final int NUMBER_FORMAT_EXCEPTION_ERROR = -1;
 	
 	// List of static class variables
-	private static File textFile;
-	private static String fileName;
-	private static Scanner scanner;
-	private static boolean shouldExitProgram = false;
+	private File textFile;
+	private String fileName;
+	private Scanner scanner;
+	private boolean shouldExitProgram = false;
 	
 	// This array stores the lines of text in a file
-	private static ArrayList<String> textStorage;
+	private ArrayList<String> textStorage;
 	
+	/*
+	 * This is the constructor for TextBuddy. This constructor
+	 * instantiates a TextBuddy object with the filename provided,
+	 * displays a welcome message and gets the file for storage ready.
+	 * 
+	 * @param args	This is the argument provided by user
+	 */
 	public TextBuddy(String[] args) throws IOException {
 		validateArguments(args);
 		printWelcomeMessage();
@@ -106,7 +113,7 @@ public class TextBuddy {
 	 * @param args This is the argument as provided by the user when starting
 	 * 			   TextBuddy.
 	 */
-	private static void validateArguments(String[] args) {
+	private void validateArguments(String[] args) {
 		if (args.length == EMPTY) {
 			displayMessage(MESSAGE_ERROR_INVALID_FILE_NAME);
 			System.exit(SYSTEM_EXIT_WITH_ERROR);
@@ -115,7 +122,7 @@ public class TextBuddy {
 		}
 	}
 
-	private static void printWelcomeMessage() {
+	private void printWelcomeMessage() {
 		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
@@ -124,7 +131,7 @@ public class TextBuddy {
 	 * scanner object and the arraylist to store the text.
 	 * If the text file does not already exist, it creates a new file.
 	 */
-	static void getFileReady() throws IOException {
+	 void getFileReady() throws IOException {
 		textFile = new File(fileName);
 		if (!textFile.exists()) {
 			textFile.createNewFile();
@@ -137,7 +144,7 @@ public class TextBuddy {
 	/* 
 	 * This operation loads the existing text from the file into textStorage arraylist.
 	 */
-	private static void loadTextFromFile() throws IOException {
+	private void loadTextFromFile() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(textFile));
 		String line;
 		while ((line = reader.readLine()) != null) {
@@ -146,7 +153,7 @@ public class TextBuddy {
 		reader.close();
 	}
 
-	private static void displayMessage(String message) {
+	private void displayMessage(String message) {
 		System.out.println(message);
 	}
 
@@ -162,16 +169,16 @@ public class TextBuddy {
 		System.exit(SYSTEM_EXIT_SUCCESS);
 	}
 
-	private static void promptUserForInput() {
+	private void promptUserForInput() {
 		System.out.print(MESSAGE_PROMPT_USER);
 	}
 
-	private static String getUserInput() {
+	private String getUserInput() {
 		String userInput = scanner.nextLine();
 		return userInput.trim();
 	}
 
-	private static CommandType getUserCommand(String userInput) {
+	private CommandType getUserCommand(String userInput) {
 		String[] userInputStringArray = userInput.split(" ");
 		String command = userInputStringArray[INDEX_OF_USER_COMMAND];
 		switch (command){
@@ -198,7 +205,7 @@ public class TextBuddy {
 	 * @param userInput	   is the whole string representing the user's entire command
 	 * @throws IOException when there is a problem in manipulating the file 
 	 */
-	static String runCommand(CommandType userCommand, String userInput) throws IOException {
+	 String runCommand(CommandType userCommand, String userInput) throws IOException {
 		switch (userCommand) {
 		  case ADD :
 			  return addToFile(userInput);
@@ -223,7 +230,7 @@ public class TextBuddy {
 	 * @param userInput is the entire line of input as entered by the user
 	 * @throws IOException when there is a problem in manipulating/saving the file.
 	 */
-	private static String deleteFromFile(String userInput) throws IOException {
+	private String deleteFromFile(String userInput) throws IOException {
 		if (isDeleteCommandValid(userInput)) {
 			int lineNumToDelete = getLineNumberToDelete(userInput);
 			return deleteLine(lineNumToDelete);
@@ -232,7 +239,7 @@ public class TextBuddy {
 		}
 	}
 
-	private static boolean isDeleteCommandValid(String userInput) throws StringIndexOutOfBoundsException {
+	private boolean isDeleteCommandValid(String userInput) throws StringIndexOutOfBoundsException {
 		try {
 			Integer.parseInt(userInput.substring(INDEX_OF_LINE_NUMBER));
 			return true;
@@ -241,11 +248,11 @@ public class TextBuddy {
 		}
 	}
 
-	private static String displayInvalidDeleteMessage() {
+	private String displayInvalidDeleteMessage() {
 		return MESSAGE_ERROR_INVALID_DELETE_COMMAND;
 	}
 
-	private static String deleteLine(int lineNumToDelete) throws IOException {
+	private String deleteLine(int lineNumToDelete) throws IOException {
 		if (islineNumToDeleteValid(lineNumToDelete)) {
 			String lineDeleted = textStorage.remove(lineNumToDelete - 1);
 			saveFile();
@@ -263,7 +270,7 @@ public class TextBuddy {
 	 * @param userInput is the entire line of input as entered by the user
 	 * @throws NumberFormatException when the user's input cannot be parsed into an integer.
 	 */
-	private static int getLineNumberToDelete(String userInput) throws NumberFormatException {
+	private int getLineNumberToDelete(String userInput) throws NumberFormatException {
 		try {
 			return Integer.parseInt(userInput.substring(INDEX_OF_LINE_NUMBER));
 		} catch (NumberFormatException exception) {
@@ -271,14 +278,14 @@ public class TextBuddy {
 		}
 	}
 
-	private static boolean islineNumToDeleteValid(int lineNumToDelete) {
+	private boolean islineNumToDeleteValid(int lineNumToDelete) {
 		if ((lineNumToDelete > 0) && (lineNumToDelete <= textStorage.size())) {
 			return true;
 		}
 		return false;
 	}
 
-	private static String displayDeleteErrorMessage() {
+	private String displayDeleteErrorMessage() {
 		if (textStorage.isEmpty()) {
 			return displayFileEmptyMessage();
 		} else {
@@ -286,34 +293,34 @@ public class TextBuddy {
 		}
 	}
 
-	private static String displayInvalidLineMessage() {
+	private String displayInvalidLineMessage() {
 		return MESSAGE_ERROR_INVALID_LINE_TO_DELETE;
 	}
 
-	private static String displayDeleteSuccessMessage(String lineDeleted) {
+	private String displayDeleteSuccessMessage(String lineDeleted) {
 		return String.format(MESSAGE_DELETED, fileName, lineDeleted);
 	}
 
-	private static String clearFile() throws IOException {
+	private String clearFile() throws IOException {
 		textStorage.clear();
 		saveFile();
 		return displayFileClearedMessage();
 	}
 
-	private static String displayFileClearedMessage() {
+	private String displayFileClearedMessage() {
 		return String.format(MESSAGE_CLEARED, fileName);
 	}
 
-	private static String errorInCommand() {
+	private String errorInCommand() {
 		return MESSAGE_ERROR_INVALID_COMMAND;
 	}
 
-	private static String exitTextBuddy() {
+	private String exitTextBuddy() {
 		shouldExitProgram = true;
 		return MESSAGE_EXIT_PROGRAM;
 	}
 
-	private static String addToFile(String userInput) throws IOException {
+	private String addToFile(String userInput) throws IOException {
 		String lineToAdd = "";
 		lineToAdd = userInput.substring(INDEX_OF_LINE_TO_ADD);
 		textStorage.add(lineToAdd);
@@ -321,11 +328,11 @@ public class TextBuddy {
 		return displayAddSuccessMessage(lineToAdd);
 	}
 
-	private static String displayAddSuccessMessage(String lineAdded) {
+	private String displayAddSuccessMessage(String lineAdded) {
 		return String.format(MESSAGE_ADDED, fileName, lineAdded);
 	}
 
-	private static void saveFile() throws IOException {
+	private void saveFile() throws IOException {
 		FileWriter writer = new FileWriter(textFile);
 		for (int i = 0; i < textStorage.size(); i++) {
 			writer.write(textStorage.get(i));
@@ -337,7 +344,7 @@ public class TextBuddy {
 		writer.close();
 	}
 
-	private static String displayFileContents() {
+	private String displayFileContents() {
 		if (textStorage.size() == EMPTY) {
 			return displayFileEmptyMessage();
 		} else {
@@ -355,7 +362,7 @@ public class TextBuddy {
 		}
 	}
 
-	private static boolean isAddingLastLine(int i) {
+	private boolean isAddingLastLine(int i) {
 		if(i == textStorage.size() - 1) {
 			return true;
 		} else {
@@ -363,14 +370,7 @@ public class TextBuddy {
 		}
 	}
 
-	private static String displayFileEmptyMessage() {
+	private String displayFileEmptyMessage() {
 		return String.format(MESSAGE_FILE_EMPTY, fileName);
-	}
-	
-	/* 
-	 * This method is used for unit testing
-	 */
-	public static void setFileName(String name) {
-		fileName = name;
 	}
 }
