@@ -58,6 +58,7 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
 	private final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
 	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain: %s";
+	private final String MESSAGE_SEARCH_KEYWORD_FAILED = "There are no lines containing: %s";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
@@ -239,17 +240,24 @@ public class TextBuddy {
 	private String searchFileContents(String userInput) {
 		String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
 		String linesContainingSearchWord = "";
+		boolean isSearchWordFound = false;
 		
 		for(int i = 0; i < textStorage.size(); i++) {
 			if(textStorage.get(i).contains(searchWord)) {
-				linesContainingSearchWord += (i+1) + textStorage.get(i);
-				if(!isAddingLastLine(i)) {
-					linesContainingSearchWord += "\n";
-				}
+				linesContainingSearchWord += (i+1) + ". " + textStorage.get(i);
+				isSearchWordFound = true;
 			}
 		}
 		
+		if(isSearchWordFound) {
 			return displaySearchSuccessMessage(searchWord) + "\n" + linesContainingSearchWord;
+		} else {
+			return displaySearchFailedMessage(searchWord);
+		}
+	}
+
+	private String displaySearchFailedMessage(String searchWord) {
+		return String.format(MESSAGE_SEARCH_KEYWORD_FAILED, searchWord);
 	}
 
 	private String displaySearchSuccessMessage(String searchWord) {

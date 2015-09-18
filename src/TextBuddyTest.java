@@ -73,11 +73,11 @@ public class TextBuddyTest {
 		assertEquals("1. Buffalo\n2. Camel\n3. Elephant\n4. Flamingo\n5. Gorilla\n6. Hippopotamus\n7. Koala\n8. Meerkat\n9. Mouse\n10. Penguin\n11. Rabbit\n12. Reindeer\n13. Shark\n14. Zebra", myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display"));
 		
 		// test search method - on a non-empty file
-		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "Elephants are huge!");
-		assertEquals("The following lines contain: elephants\n", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Elephants are huge!");
+		assertEquals("The following lines contain: Elephants\n15. Elephants are huge!", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search Elephants"));
 		
 		// test search method - on an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
-		assertEquals("There are no lines containing: elephants\n", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
+		assertEquals("There are no lines containing: elephants", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
 	}
 }
