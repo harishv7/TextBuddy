@@ -113,7 +113,7 @@ public class TextBuddy {
 	 * instantiates a TextBuddy object with the filename provided,
 	 * displays a welcome message and gets the file for storage ready.
 	 * 
-	 * @param args	This is the argument provided by user
+	 * @param args	This is the argument provided by user.
 	 */
 	public TextBuddy(String[] args) throws IOException {
 		validateArguments(args);
@@ -225,9 +225,9 @@ public class TextBuddy {
 	 * This operation determines what the user wishes to execute and calls the relevant
 	 * methods to manipulate the text file.
 	 * 
-	 * @param userCommand  is the first word of the user's input command
-	 * @param userInput	   is the whole string representing the user's entire command
-	 * @throws IOException when there is a problem in manipulating the file 
+	 * @param userCommand  is the first word of the user's input command.
+	 * @param userInput	   is the whole string representing the user's entire command.
+	 * @throws IOException when there is a problem in manipulating the file. 
 	 */
 	 String runCommand(CommandType userCommand, String userInput) throws IOException {
 		switch (userCommand) {
@@ -257,7 +257,7 @@ public class TextBuddy {
 	  * returns a string containing the lines with the search word. It returns an
 	  * appropriate error message if the command is incomplete or no lines were found.
 	  * 
-	  * @param userInput	is the user given input containing the details of the search word 
+	  * @param userInput	is the user given input containing the details of the search word. 
 	  */
 	 private String searchFileContents(String userInput) {
 		 try {
@@ -309,7 +309,7 @@ public class TextBuddy {
 	 * This method sorts the file contents in alphabetical order and employs
 	 * a case-insensitive manner while sorting.
 	 * 
-	 * @throws	IOException if there are problems in manipulating the textfile
+	 * @throws IOException if there are problems in manipulating the textfile.
 	 */
 	private String sortFileContents() throws IOException {
 		if (textStorage.isEmpty()) {
@@ -332,7 +332,7 @@ public class TextBuddy {
 	/*
 	 * This operation deletes the user-specified line of text from the file.
 	 * 
-	 * @param userInput is the entire line of input as entered by the user
+	 * @param userInput is the entire line of input as entered by the user.
 	 * @throws IOException when there is a problem in manipulating/saving the file.
 	 */
 	private String deleteFromFile(String userInput) throws IOException {
@@ -361,7 +361,7 @@ public class TextBuddy {
 	 * This method deletes the specified line number from the storage/textfile
 	 * 
 	 * @param lineNumToDelete	is the line number as indicated by the user to delete.
-	 * @throws IOException		when there are problems in manipulating/saving the external file.
+	 * @throws IOException	when there are problems in manipulating/saving the external file.
 	 */
 	private String deleteLine(int lineNumToDelete) throws IOException {
 		if (islineNumToDeleteValid(lineNumToDelete)) {
