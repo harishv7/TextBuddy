@@ -48,7 +48,7 @@ public class TextBuddyTest {
 		// Test Driven Development (TDD) for CE2
 		// test sorting an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
-		assertEquals(fileName + " has nothing to sort", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
+		assertEquals(fileName + " has nothing to sort.", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
 		
 		// test sorting a non-empty file according to alphabetical order
 		// add sample lines
@@ -81,7 +81,7 @@ public class TextBuddyTest {
 		
 		// test search method - on an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
-		assertEquals("There are no lines containing: elephants", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
+		assertEquals(fileName + " is empty. There are no lines to search.", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
 		
 		// clear file after test is complete
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
