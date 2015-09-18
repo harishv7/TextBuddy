@@ -33,6 +33,18 @@ import java.util.Scanner;
 	all content deleted from mytextfile.txt
 	command: display
 	mytextfile.txt is empty
+	command: add hello world!
+	added to mytextfile.txt: "hello world!"
+	command: search world
+	The following lines contain: world
+	1. hello world
+	command: add apples are great
+	added to mytextfile.txt: "apples are great"
+	command sort
+	mytextfile.txt has been sort alphabetically.
+	command: display
+	1. apples are great
+	2. hello world!
 	command: exit
  * Notes to user:
  * 1. This program assumes that the user input is valid, especially
