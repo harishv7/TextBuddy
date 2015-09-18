@@ -100,8 +100,5 @@ public class TextBuddyTest {
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
 		assertEquals(fileName + " is empty. There are no lines to search.", 
 				myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
-		
-		// clear file after test is complete
-		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
 	}
 }
