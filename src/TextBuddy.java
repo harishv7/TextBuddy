@@ -256,6 +256,7 @@ public class TextBuddy {
 	  * This method searches the file/storage to check for the search word and
 	  * returns a string containing the lines with the search word. It returns an
 	  * appropriate error message if the command is incomplete or no lines were found.
+	  * The search word is case sensitive. (i.e.: Apples ≠ apples)
 	  * 
 	  * @param userInput	is the user given input containing the details of the search word. 
 	  */
@@ -267,12 +268,14 @@ public class TextBuddy {
 
 			 for (int i = 0; i < textStorage.size(); i++) {
 				 if (textStorage.get(i).contains(searchWord)) {
-					 linesContainingSearchWord += (i+1) + ". " + textStorage.get(i);
+					 linesContainingSearchWord += (i+1) + ". " + textStorage.get(i) + "\n";
 					 isSearchWordFound = true;
 				 }
 			 }
 			 if (isSearchWordFound) {
-				 return displaySearchSuccessMessage(searchWord) + "\n" + linesContainingSearchWord;
+				 int lengthOfLinesWithSearchWord = linesContainingSearchWord.length();
+				 return displaySearchSuccessMessage(searchWord) + "\n" 
+						 + linesContainingSearchWord.substring(0, lengthOfLinesWithSearchWord-1);
 			 } else {
 				 return displaySearchFailedMessage(searchWord);
 			 }
