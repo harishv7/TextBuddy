@@ -201,7 +201,7 @@ public class TextBuddy {
 	private CommandType getUserCommand(String userInput) {
 		String[] userInputStringArray = userInput.split(" ");
 		String command = userInputStringArray[INDEX_OF_USER_COMMAND];
-		switch (command){
+		switch (command) {
 		  case "add" :
 			  return CommandType.ADD;
 		  case "delete" :
