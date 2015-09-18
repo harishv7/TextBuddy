@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,18 @@ import java.util.Scanner;
 	all content deleted from mytextfile.txt
 	command: display
 	mytextfile.txt is empty
+	command: add hello world!
+	added to mytextfile.txt: "hello world!"
+	command: search world
+	The following lines contain: world
+	1. hello world
+	command: add apples are great
+	added to mytextfile.txt: "apples are great"
+	command sort
+	mytextfile.txt has been sort alphabetically.
+	command: display
+	1. apples are great
+	2. hello world!
 	command: exit
  * Notes to user:
  * 1. This program assumes that the user input is valid, especially
@@ -55,13 +68,19 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
 	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
+	private final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
+	private final String MESSAGE_SORT_EMPTY_FILE = "%s has nothing to sort.";
+	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain: %s";
+	private final String MESSAGE_SEARCH_KEYWORD_FAILED = "There are no lines containing: %s";
+	private final String MESSAGE_SEARCH_EMPTY_FILE = "%s is empty. There are no lines to search.";
+	private final String MESSAGE_ERROR_INVALID_SEARCH_COMMAND = "You have provided an invalid search command.";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
 
 	// List of Commands
 	enum CommandType {
-		ADD, DELETE, DISPLAY, CLEAR, INVALID, EXIT
+		ADD, DELETE, DISPLAY, CLEAR, SORT, SEARCH, INVALID, EXIT
 	};
 
 	// List of integer constants used in parsing/manipulating file
@@ -70,6 +89,7 @@ public class TextBuddy {
 	private final int INDEX_OF_USER_COMMAND = 0;
 	private final int INDEX_OF_LINE_NUMBER = 7;
 	private final int INDEX_OF_LINE_TO_ADD = 4;
+	private final int INDEX_OF_SEARCH_WORD = 7;
 	
 	// Integer constant used to reflect empty files/lines
 	private final int EMPTY = 0;
@@ -93,7 +113,7 @@ public class TextBuddy {
 	 * instantiates a TextBuddy object with the filename provided,
 	 * displays a welcome message and gets the file for storage ready.
 	 * 
-	 * @param args	This is the argument provided by user
+	 * @param args	This is the argument provided by user.
 	 */
 	public TextBuddy(String[] args) throws IOException {
 		validateArguments(args);
@@ -131,7 +151,7 @@ public class TextBuddy {
 	 * scanner object and the arraylist to store the text.
 	 * If the text file does not already exist, it creates a new file.
 	 */
-	 void getFileReady() throws IOException {
+	 private void getFileReady() throws IOException {
 		textFile = new File(fileName);
 		if (!textFile.exists()) {
 			textFile.createNewFile();
@@ -190,6 +210,10 @@ public class TextBuddy {
 			  return CommandType.CLEAR;
 		  case "display" :
 			  return CommandType.DISPLAY;
+		  case "sort" :
+			  return CommandType.SORT;
+		  case "search" : 
+			  return CommandType.SEARCH;
 		  case "exit" :
 			  return CommandType.EXIT;
 		  default :
@@ -201,9 +225,9 @@ public class TextBuddy {
 	 * This operation determines what the user wishes to execute and calls the relevant
 	 * methods to manipulate the text file.
 	 * 
-	 * @param userCommand  is the first word of the user's input command
-	 * @param userInput	   is the whole string representing the user's entire command
-	 * @throws IOException when there is a problem in manipulating the file 
+	 * @param userCommand  is the first word of the user's input command.
+	 * @param userInput	   is the whole string representing the user's entire command.
+	 * @throws IOException when there is a problem in manipulating the file. 
 	 */
 	 String runCommand(CommandType userCommand, String userInput) throws IOException {
 		switch (userCommand) {
@@ -215,6 +239,10 @@ public class TextBuddy {
 			  return clearFile();
 		  case DISPLAY :
 			  return displayFileContents();
+		  case SORT :
+			  return sortFileContents();
+		  case SEARCH : 
+			  return searchFileContents(userInput);
 		  case EXIT :
 			  return exitTextBuddy();
 		  case INVALID :
@@ -223,11 +251,88 @@ public class TextBuddy {
 			  return "";
 		}
 	}
+	 
+	 /* 
+	  * This method searches the file/storage to check for the search word and
+	  * returns a string containing the lines with the search word. It returns an
+	  * appropriate error message if the command is incomplete or no lines were found.
+	  * 
+	  * @param userInput	is the user given input containing the details of the search word. 
+	  */
+	 private String searchFileContents(String userInput) {
+		 try {
+	         String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
+			 String linesContainingSearchWord = "";
+			 boolean isSearchWordFound = false;
+
+			 for (int i = 0; i < textStorage.size(); i++) {
+				 if (textStorage.get(i).contains(searchWord)) {
+					 linesContainingSearchWord += (i+1) + ". " + textStorage.get(i);
+					 isSearchWordFound = true;
+				 }
+			 }
+			 if (isSearchWordFound) {
+				 return displaySearchSuccessMessage(searchWord) + "\n" + linesContainingSearchWord;
+			 } else {
+				 return displaySearchFailedMessage(searchWord);
+			 }
+		 } catch (StringIndexOutOfBoundsException exception) {
+			 return displayInavlidSearchMessage();
+		 }
+	 }
+
+	private String displayInavlidSearchMessage() {
+		return MESSAGE_ERROR_INVALID_SEARCH_COMMAND;
+	}
+
+	private String displaySearchFailedMessage(String searchWord) {
+		if (textStorage.isEmpty()) {
+			return displaySearchEmptyFileMessage();
+		} else {
+			return displaySearchNotFoundMessage(searchWord);
+		}
+	}
+
+	private String displaySearchNotFoundMessage(String searchWord) {
+		return String.format(MESSAGE_SEARCH_KEYWORD_FAILED, searchWord);
+	}
+
+	private String displaySearchSuccessMessage(String searchWord) {
+		return String.format(MESSAGE_SEARCH_KEYWORD_SUCCESS, searchWord);
+	}
+	
+	private String displaySearchEmptyFileMessage() {
+		return String.format(MESSAGE_SEARCH_EMPTY_FILE, fileName);
+	}
+	
+	/* 
+	 * This method sorts the file contents in alphabetical order and employs
+	 * a case-insensitive manner while sorting.
+	 * 
+	 * @throws IOException if there are problems in manipulating the textfile.
+	 */
+	private String sortFileContents() throws IOException {
+		if (textStorage.isEmpty()) {
+			return displayEmptyFileSortMessage();
+		} else {
+			Collections.sort(textStorage, String.CASE_INSENSITIVE_ORDER);
+			saveFile();
+			return displaySuccessfulSortMessage();
+		}
+	}
+
+	private String displayEmptyFileSortMessage() {
+		return String.format(MESSAGE_SORT_EMPTY_FILE, fileName);
+	}
+
+	private String displaySuccessfulSortMessage() {
+		return String.format(MESSAGE_SORT_SUCCESS, fileName);
+	}
 
 	/*
 	 * This operation deletes the user-specified line of text from the file.
 	 * 
-	 * @param userInput is the entire line of input as entered by the user
+	 * @param userInput is the entire line of input as entered by the user.
 	 * @throws IOException when there is a problem in manipulating/saving the file.
 	 */
 	private String deleteFromFile(String userInput) throws IOException {
@@ -251,7 +356,13 @@ public class TextBuddy {
 	private String displayInvalidDeleteMessage() {
 		return MESSAGE_ERROR_INVALID_DELETE_COMMAND;
 	}
-
+	
+	/* 
+	 * This method deletes the specified line number from the storage/textfile
+	 * 
+	 * @param lineNumToDelete	is the line number as indicated by the user to delete.
+	 * @throws IOException	when there are problems in manipulating/saving the external file.
+	 */
 	private String deleteLine(int lineNumToDelete) throws IOException {
 		if (islineNumToDeleteValid(lineNumToDelete)) {
 			String lineDeleted = textStorage.remove(lineNumToDelete - 1);
@@ -267,7 +378,7 @@ public class TextBuddy {
 	 * In the case of an exception where the input cannot be formatted, it
 	 * returns NUMBER_FORMAT_EXCEPTION_ERROR which represents -1.
 	 * 
-	 * @param userInput is the entire line of input as entered by the user
+	 * @param userInput is the entire line of input as entered by the user.
 	 * @throws NumberFormatException when the user's input cannot be parsed into an integer.
 	 */
 	private int getLineNumberToDelete(String userInput) throws NumberFormatException {
@@ -349,12 +460,12 @@ public class TextBuddy {
 			return displayFileEmptyMessage();
 		} else {
 			String fileContent = "";
-			for(int i = 0; i < textStorage.size(); i++) {
+			for (int i = 0; i < textStorage.size(); i++) {
 				int lineNumber = i+1;
 				fileContent += lineNumber + ". " + textStorage.get(i);
 				
 				// Only add a newline character when it is not the last line to display
-				if(!isAddingLastLine(i)) {
+				if (!isAddingLastLine(i)) {
 					fileContent += "\n";
 				}
 			}
@@ -363,7 +474,7 @@ public class TextBuddy {
 	}
 
 	private boolean isAddingLastLine(int i) {
-		if(i == textStorage.size() - 1) {
+		if (i == textStorage.size() - 1) {
 			return true;
 		} else {
 			return false;
