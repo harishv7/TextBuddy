@@ -56,14 +56,15 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_COMMAND = "You have provided an invalid command. Please try again.";
 	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
-	private static final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
+	private final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
+	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain %s";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
 
 	// List of Commands
 	enum CommandType {
-		ADD, DELETE, DISPLAY, CLEAR, SORT, INVALID, EXIT
+		ADD, DELETE, DISPLAY, CLEAR, SORT, SEARCH, INVALID, EXIT
 	};
 
 	// List of integer constants used in parsing/manipulating file
@@ -72,6 +73,7 @@ public class TextBuddy {
 	private final int INDEX_OF_USER_COMMAND = 0;
 	private final int INDEX_OF_LINE_NUMBER = 7;
 	private final int INDEX_OF_LINE_TO_ADD = 4;
+	private final int INDEX_OF_SEARCH_WORD = 7;
 	
 	// Integer constant used to reflect empty files/lines
 	private final int EMPTY = 0;
@@ -194,6 +196,8 @@ public class TextBuddy {
 			  return CommandType.DISPLAY;
 		  case "sort" :
 			  return CommandType.SORT;
+		  case "search" : 
+			  return CommandType.SEARCH;
 		  case "exit" :
 			  return CommandType.EXIT;
 		  default :
@@ -221,6 +225,8 @@ public class TextBuddy {
 			  return displayFileContents();
 		  case SORT :
 			  return sortFileContents();
+		  case SEARCH : 
+			  return searchFileContents(userInput);
 		  case EXIT :
 			  return exitTextBuddy();
 		  case INVALID :
@@ -228,6 +234,26 @@ public class TextBuddy {
 		  default :
 			  return "";
 		}
+	}
+
+	private String searchFileContents(String userInput) {
+		String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
+		String linesContainingSearchWord = "";
+		
+		for(int i = 0; i < textStorage.size(); i++) {
+			if(textStorage.get(i).contains(searchWord)) {
+				linesContainingSearchWord += (i+1) + textStorage.get(i);
+				if(!isAddingLastLine(i)) {
+					linesContainingSearchWord += "\n";
+				}
+			}
+		}
+		
+			return displaySearchSuccessMessage(searchWord) + "\n" + linesContainingSearchWord;
+	}
+
+	private String displaySearchSuccessMessage(String searchWord) {
+		return String.format(MESSAGE_SEARCH_KEYWORD_SUCCESS, searchWord);
 	}
 
 	private String sortFileContents() throws IOException {

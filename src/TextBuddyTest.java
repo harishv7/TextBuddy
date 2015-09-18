@@ -74,6 +74,6 @@ public class TextBuddyTest {
 		
 		// test search method - on a non-empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "Elephants are huge!");
-		assertEquals("The following lines contain elephants", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephant"));
+		assertEquals("The following lines contain elephants\n", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
 	}
 }
