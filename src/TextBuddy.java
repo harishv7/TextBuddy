@@ -251,7 +251,14 @@ public class TextBuddy {
 			  return "";
 		}
 	}
-
+	 
+	 /* 
+	  * This method searches the file/storage to check for the search word and
+	  * returns a string containing the lines with the search word. It returns an
+	  * appropriate error message if the command is incomplete or no lines were found.
+	  * 
+	  * @param userInput	is the user given input containing the details of the search word 
+	  */
 	 private String searchFileContents(String userInput) {
 		 try {
 	         String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
@@ -297,7 +304,13 @@ public class TextBuddy {
 	private String displaySearchEmptyFileMessage() {
 		return String.format(MESSAGE_SEARCH_EMPTY_FILE, fileName);
 	}
-
+	
+	/* 
+	 * This method sorts the file contents in alphabetical order and employs
+	 * a case-insensitive manner while sorting.
+	 * 
+	 * @throws	IOException if there are problems in manipulating the textfile
+	 */
 	private String sortFileContents() throws IOException {
 		if (textStorage.isEmpty()) {
 			return displayEmptyFileSortMessage();
@@ -343,7 +356,13 @@ public class TextBuddy {
 	private String displayInvalidDeleteMessage() {
 		return MESSAGE_ERROR_INVALID_DELETE_COMMAND;
 	}
-
+	
+	/* 
+	 * This method deletes the specified line number from the storage/textfile
+	 * 
+	 * @param lineNumToDelete	is the line number as indicated by the user to delete.
+	 * @throws IOException		when there are problems in manipulating/saving the external file.
+	 */
 	private String deleteLine(int lineNumToDelete) throws IOException {
 		if (islineNumToDeleteValid(lineNumToDelete)) {
 			String lineDeleted = textStorage.remove(lineNumToDelete - 1);
@@ -359,7 +378,7 @@ public class TextBuddy {
 	 * In the case of an exception where the input cannot be formatted, it
 	 * returns NUMBER_FORMAT_EXCEPTION_ERROR which represents -1.
 	 * 
-	 * @param userInput is the entire line of input as entered by the user
+	 * @param userInput is the entire line of input as entered by the user.
 	 * @throws NumberFormatException when the user's input cannot be parsed into an integer.
 	 */
 	private int getLineNumberToDelete(String userInput) throws NumberFormatException {
