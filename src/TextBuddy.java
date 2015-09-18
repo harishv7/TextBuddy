@@ -258,13 +258,13 @@ public class TextBuddy {
 			 String linesContainingSearchWord = "";
 			 boolean isSearchWordFound = false;
 
-			 for(int i = 0; i < textStorage.size(); i++) {
-				 if(textStorage.get(i).contains(searchWord)) {
+			 for (int i = 0; i < textStorage.size(); i++) {
+				 if (textStorage.get(i).contains(searchWord)) {
 					 linesContainingSearchWord += (i+1) + ". " + textStorage.get(i);
 					 isSearchWordFound = true;
 				 }
 			 }
-			 if(isSearchWordFound) {
+			 if (isSearchWordFound) {
 				 return displaySearchSuccessMessage(searchWord) + "\n" + linesContainingSearchWord;
 			 } else {
 				 return displaySearchFailedMessage(searchWord);
@@ -279,7 +279,7 @@ public class TextBuddy {
 	}
 
 	private String displaySearchFailedMessage(String searchWord) {
-		if(textStorage.isEmpty()) {
+		if (textStorage.isEmpty()) {
 			return displaySearchEmptyFileMessage();
 		} else {
 			return displaySearchNotFoundMessage(searchWord);
@@ -299,7 +299,7 @@ public class TextBuddy {
 	}
 
 	private String sortFileContents() throws IOException {
-		if(textStorage.isEmpty()) {
+		if (textStorage.isEmpty()) {
 			return displayEmptyFileSortMessage();
 		} else {
 			Collections.sort(textStorage);
@@ -441,12 +441,12 @@ public class TextBuddy {
 			return displayFileEmptyMessage();
 		} else {
 			String fileContent = "";
-			for(int i = 0; i < textStorage.size(); i++) {
+			for (int i = 0; i < textStorage.size(); i++) {
 				int lineNumber = i+1;
 				fileContent += lineNumber + ". " + textStorage.get(i);
 				
 				// Only add a newline character when it is not the last line to display
-				if(!isAddingLastLine(i)) {
+				if (!isAddingLastLine(i)) {
 					fileContent += "\n";
 				}
 			}
@@ -455,7 +455,7 @@ public class TextBuddy {
 	}
 
 	private boolean isAddingLastLine(int i) {
-		if(i == textStorage.size() - 1) {
+		if (i == textStorage.size() - 1) {
 			return true;
 		} else {
 			return false;
