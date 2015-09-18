@@ -60,6 +60,7 @@ public class TextBuddy {
 	private final String MESSAGE_SORT_EMPTY_FILE = "%s has nothing to sort.";
 	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain: %s";
 	private final String MESSAGE_SEARCH_KEYWORD_FAILED = "There are no lines containing: %s";
+	private final String MESSAGE_SEARCH_EMPTY_FILE = "%s is empty. There are no lines to search.";
 	private final String MESSAGE_ERROR_INVALID_SEARCH_COMMAND = "You have provided an invalid search command.";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
@@ -266,7 +267,11 @@ public class TextBuddy {
 	}
 
 	private String displaySearchFailedMessage(String searchWord) {
-		return displaySearchNotFoundMessage(searchWord);
+		if(textStorage.isEmpty()) {
+			return displaySearchEmptyFileMessage();
+		} else {
+			return displaySearchNotFoundMessage(searchWord);
+		}
 	}
 
 	private String displaySearchNotFoundMessage(String searchWord) {
@@ -275,6 +280,10 @@ public class TextBuddy {
 
 	private String displaySearchSuccessMessage(String searchWord) {
 		return String.format(MESSAGE_SEARCH_KEYWORD_SUCCESS, searchWord);
+	}
+	
+	private String displaySearchEmptyFileMessage() {
+		return String.format(MESSAGE_SEARCH_EMPTY_FILE, fileName);
 	}
 
 	private String sortFileContents() throws IOException {
