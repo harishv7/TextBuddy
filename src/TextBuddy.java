@@ -302,7 +302,7 @@ public class TextBuddy {
 		if (textStorage.isEmpty()) {
 			return displayEmptyFileSortMessage();
 		} else {
-			Collections.sort(textStorage);
+			Collections.sort(textStorage, String.CASE_INSENSITIVE_ORDER);
 			saveFile();
 			return displaySuccessfulSortMessage();
 		}

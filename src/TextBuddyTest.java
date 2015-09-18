@@ -101,7 +101,7 @@ public class TextBuddyTest {
 		
 		// test search method - on a non-empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Elephants are huge!");
-		assertEquals("The following lines contain: Elephants\n15. Elephants are huge!", 
+		assertEquals("The following lines contain: Elephants\n4. Elephants are huge!", 
 				myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search Elephants"));
 		
 		// test search method - search word does not exist in file
