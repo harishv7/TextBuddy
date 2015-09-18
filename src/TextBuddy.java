@@ -57,6 +57,7 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
 	private final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
+	private final String MESSAGE_SORT_EMPTY_FILE = "%s has nothing to sort.";
 	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain: %s";
 	private final String MESSAGE_SEARCH_KEYWORD_FAILED = "There are no lines containing: %s";
 	private final String MESSAGE_SEARCH_EMPTY_FILE = "%s is empty. There are no lines to search.";
@@ -267,10 +268,18 @@ public class TextBuddy {
 
 	private String displaySearchFailedMessage(String searchWord) {
 		if(textStorage.isEmpty()) {
-			return String.format(MESSAGE_SEARCH_EMPTY_FILE, fileName);
+			return displaySearchEmptyFileMessage();
 		} else {
-			return String.format(MESSAGE_SEARCH_KEYWORD_FAILED, searchWord);
+			return displaySearchNotFoundMessage(searchWord);
 		}
+	}
+
+	private String displaySearchNotFoundMessage(String searchWord) {
+		return String.format(MESSAGE_SEARCH_KEYWORD_FAILED, searchWord);
+	}
+
+	private String displaySearchEmptyFileMessage() {
+		return String.format(MESSAGE_SEARCH_EMPTY_FILE, fileName);
 	}
 
 	private String displaySearchSuccessMessage(String searchWord) {
@@ -279,12 +288,16 @@ public class TextBuddy {
 
 	private String sortFileContents() throws IOException {
 		if(textStorage.isEmpty()) {
-			return fileName + " has nothing to sort";
+			return displayEmptyFileSortMessage();
 		} else {
 			Collections.sort(textStorage);
 			saveFile();
 			return displaySuccessfulSortMessage();
 		}
+	}
+
+	private String displayEmptyFileSortMessage() {
+		return String.format(MESSAGE_SORT_EMPTY_FILE, fileName);
 	}
 
 	private String displaySuccessfulSortMessage() {
