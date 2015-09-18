@@ -68,6 +68,12 @@ public class TextBuddyTest {
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Mouse");
 				
 		assertEquals(fileName + " has been sorted alphabetically.", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
-		myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
+		
+		// check if the contents have also been sorted properly
+		assertEquals("1. Buffalo\n2. Camel\n3. Elephant\n4. Flamingo\n5. Gorilla\n6. Hippopotamus\n7. Koala\n8. Meerkat\n9. Mouse\n10. Penguin\n11. Rabbit\n12. Reindeer\n13. Shark\n14. Zebra", myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display"));
+		
+		// test search method - on a non-empty file
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "Elephants are huge!");
+		assertEquals("The following lines contain elephants", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephant"));
 	}
 }
