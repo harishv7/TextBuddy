@@ -24,13 +24,12 @@ public class TextBuddyTest {
 		assertEquals("added to " + fileName + ": \"With Great Power Comes Great Responsibility\"", myTextBuddy.runCommand(TextBuddy.CommandType.ADD,"add With Great Power Comes Great Responsibility"));
 		assertEquals("added to " + fileName + ": \"Patience is Virtue\"", myTextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Patience is Virtue"));
 		
-		// test display function
-		myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
-		assertEquals("added to " + fileName + ": \"Hello World\"", myTextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
-		myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
-		
 		// test clear function
 		assertEquals("all content deleted from " + fileName, myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear"));
+		
+		// test display function
+		assertEquals("added to " + fileName + ": \"Hello World\"", myTextBuddy.runCommand(TextBuddy.CommandType.ADD,"add Hello World"));
+		assertEquals("1. Hello World", myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display"));
 		
 		// test deleting from an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
@@ -69,5 +68,6 @@ public class TextBuddyTest {
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Mouse");
 				
 		assertEquals(fileName + " has been sorted alphabetically.", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
+		myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display");
 	}
 }

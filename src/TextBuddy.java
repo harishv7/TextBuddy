@@ -230,11 +230,12 @@ public class TextBuddy {
 		}
 	}
 
-	private String sortFileContents() {
+	private String sortFileContents() throws IOException {
 		if(textStorage.isEmpty()) {
 			return fileName + " has nothing to sort";
 		} else {
-			java.util.Collections.sort(textStorage);
+			Collections.sort(textStorage);
+			saveFile();
 			return displaySuccessfulSortMessage();
 		}
 	}
