@@ -57,7 +57,7 @@ public class TextBuddy {
 	private final String MESSAGE_ERROR_INVALID_LINE_TO_DELETE = "You have provided an invalid line number.";
 	private final String MESSAGE_ERROR_INVALID_DELETE_COMMAND = "You have provided an invalid/incomplete delete command.";
 	private final String MESSAGE_SORT_SUCCESS = "%s has been sorted alphabetically.";
-	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain %s";
+	private final String MESSAGE_SEARCH_KEYWORD_SUCCESS = "The following lines contain: %s";
 	private final String MESSAGE_PROMPT_USER = "command: ";
 	private final String MESSAGE_FILE_EMPTY = "%s is empty";
 	private final String MESSAGE_EXIT_PROGRAM = "TextBuddy is closing...";
