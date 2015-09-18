@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TextBuddyTest {
-	private static final String[] fileNameArray = {"mytextfile.txt"};
+	private static final String[] fileNameArray = {"mytestfile.txt"};
 	private static final String fileName = fileNameArray[0];
 	private static TextBuddy myTextBuddy;
 	
@@ -79,5 +79,8 @@ public class TextBuddyTest {
 		// test search method - on an empty file
 		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
 		assertEquals("There are no lines containing: elephants", myTextBuddy.runCommand(TextBuddy.CommandType.SEARCH, "search elephants"));
+		
+		// clear file after test is complete
+		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
 	}
 }
