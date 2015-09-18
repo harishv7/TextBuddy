@@ -133,7 +133,7 @@ public class TextBuddy {
 	 * scanner object and the arraylist to store the text.
 	 * If the text file does not already exist, it creates a new file.
 	 */
-	 void getFileReady() throws IOException {
+	 private void getFileReady() throws IOException {
 		textFile = new File(fileName);
 		if (!textFile.exists()) {
 			textFile.createNewFile();

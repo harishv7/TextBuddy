@@ -66,8 +66,8 @@ public class TextBuddyTest {
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Koala");
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Flamingo");
 		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Elephant");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Mouse");
 				
 		assertEquals(fileName + " has been sorted alphabetically.", myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
-		
 	}
 }
