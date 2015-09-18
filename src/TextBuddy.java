@@ -254,7 +254,7 @@ public class TextBuddy {
 
 	 private String searchFileContents(String userInput) {
 		 try {
-			 String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
+	         String searchWord = userInput.substring(INDEX_OF_SEARCH_WORD);
 			 String linesContainingSearchWord = "";
 			 boolean isSearchWordFound = false;
 

@@ -84,9 +84,19 @@ public class TextBuddyTest {
 				myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
 		
 		// test sort - if the contents have also been sorted properly
-		assertEquals("1. Buffalo\n2. Camel\n3. Elephant\n4. Flamingo\n5. Gorilla\n6."
-				+ "Hippopotamus\n7. Koala\n8. Meerkat\n9. Mouse\n10. Penguin\n11." 
+		assertEquals("1. Buffalo\n2. Camel\n3. Elephant\n4. Flamingo\n5. Gorilla\n6. "
+				+ "Hippopotamus\n7. Koala\n8. Meerkat\n9. Mouse\n10. Penguin\n11. " 
 				+ "Rabbit\n12. Reindeer\n13. Shark\n14. Zebra", 
+				myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display"));
+		
+		// test sort - sort lines with mixed cases
+		myTextBuddy.runCommand(TextBuddy.CommandType.CLEAR, "clear");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add Flamingo");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add zebra");
+		myTextBuddy.runCommand(TextBuddy.CommandType.ADD, "add elephants");
+		assertEquals(fileName + " has been sorted alphabetically.", 
+				myTextBuddy.runCommand(TextBuddy.CommandType.SORT, "sort"));
+		assertEquals("1. elephants\n2. Flamingo\n3. zebra", 
 				myTextBuddy.runCommand(TextBuddy.CommandType.DISPLAY, "display"));
 		
 		// test search method - on a non-empty file
