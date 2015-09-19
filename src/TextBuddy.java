@@ -183,7 +183,7 @@ public class TextBuddy {
 			promptUserForInput();
 			userInput = getUserInput();
 			CommandType userCommand = getUserCommand(userInput);
-			String textToDisplay = executeCommand(userCommand, userInput);
+			String textToDisplay = runCommand(userCommand, userInput);
 			displayMessage(textToDisplay);
 		}
 		System.exit(SYSTEM_EXIT_SUCCESS);
@@ -229,7 +229,7 @@ public class TextBuddy {
 	 * @param userInput	   is the whole string representing the user's entire command.
 	 * @throws IOException when there is a problem in manipulating the file. 
 	 */
-	 String executeCommand(CommandType userCommand, String userInput) throws IOException {
+	 String runCommand(CommandType userCommand, String userInput) throws IOException {
 		switch (userCommand) {
 		  case ADD :
 			  return addToFile(userInput);
